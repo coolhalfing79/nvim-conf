@@ -64,3 +64,8 @@ vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { d
 vim.keymap.set('n', '<leader>/', custom_preview(require('telescope.builtin').current_buffer_fuzzy_find), { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>sd', custom_preview(require('telescope.builtin').diagnostics), { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>o', custom_preview(goto_function), { desc = '[S]how [F]unctions' })
+vim.keymap.set("n", "<leader>g", ":vert Git<CR>")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
