@@ -6,6 +6,7 @@ vim.g.netrw_banner = false
 vim.g.netrw_browser_split = 4
 vim.g.netrw_altv = 1
 vim.g.netrw_liststyle = 0
+vim.o.cursorline = true
 
 vim.o.splitright = true
 vim.o.splitbelow = true
@@ -15,7 +16,8 @@ vim.o.termguicolors = true
 vim.o.updatetime = 50
 vim.o.timeoutlen = 300
 
-
+vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'
+vim.o.undofile = true
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -68,11 +70,11 @@ require('lazy').setup({
             'williamboman/mason-lspconfig.nvim',
         },
     },
-    'nvim-telescope/telescope-symbols.nvim',
-    'rebelot/kanagawa.nvim'
+    { 'stevedylandev/flexoki-nvim', name = 'flexoki' },
+    'judaew/ronny.nvim',
 }, opts)
 
-vim.cmd.colorscheme 'kanagawa'
+vim.cmd.colorscheme 'ronny'
 require('mason').setup()
 require('mason-lspconfig').setup()
 
@@ -84,12 +86,15 @@ local telescope_themes = require 'telescope.themes'
 local nmap = function(keys, func)
     vim.keymap.set("n", keys, func)
 end
+local vmap = function(keys, func)
+    vim.keymap.set("v", keys, func)
+end
 
 nmap("<leader>e", ":20Lex<CR>")
 nmap("<leader>f", ":find ")
 nmap("<leader>zf", telescope_builtin.find_files)
-nmap("J", ":m '>+1<CR>gv=gv")
-nmap("K", ":m '<-2<CR>gv=gv")
+vmap("J", ":m '>+1<CR>gv=gv")
+vmap("K", ":m '<-2<CR>gv=gv")
 
 local symbols = function()
     return function()
@@ -112,11 +117,16 @@ local on_attach = function(_, bufnr)
     end, { desc = 'Format current buffer with LSP' })
 end
 
-lsps = {'rust_analyzer', 'jdtls', 'gopls'}
-lspconfig = require('lspconfig')
+lsps = {'rust_analyzer', 'gopls', 'lua_ls'}
+local lspconfig = require('lspconfig')
 for _, lsp in pairs(lsps) do
     lspconfig[lsp].setup {
         capabilities = capabilities,
         on_attach = on_attach,
     }
 end
+-- java is special
+lspconfig['jdtls'].setup {
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
