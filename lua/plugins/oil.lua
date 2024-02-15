@@ -11,8 +11,10 @@ local M = {
             },
             keymaps = {
                 ["-"] = "actions.parent",
-            }
+            },
         })
+        local nmap = require("plugins.utils").nmap
+        nmap('<leader>e', oil.open, '[E]xplorer')
     end
 }
 

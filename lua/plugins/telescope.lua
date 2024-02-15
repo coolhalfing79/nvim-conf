@@ -71,26 +71,18 @@ local M = {
         },
     },
     config = function()
-        local telescope = require("telescope")
         local builtin = require("telescope.builtin")
-        telescope.setup({
-            defaults = {
-                layout_config = {
-                    vertical = { width = 0.5 }
-                }
-            }
-        })
-
         local nmap = require("plugins.utils").nmap
+
         pcall(require('telescope').load_extension, 'fzf')
+
         nmap('<leader>f', builtin.find_files, '[S]earch [F]iles')
         nmap('<leader>gf', builtin.git_files, 'Search [G]it [F]iles')
         nmap('<leader>sh', builtin.help_tags, '[S]earch [H]elp')
         nmap('<leader>sw', builtin.grep_string, '[S]earch current [W]ord')
         nmap('<leader>sg', builtin.live_grep, '[S]earch by [G]rep')
         nmap('<leader><space>', builtin.buffers, '[ ] Find existing buffers')
-        nmap('<leader>/', custom_preview(builtin.current_buffer_fuzzy_find),
-            '[/] Fuzzily search in current buffer')
+        nmap('<leader>/', custom_preview(builtin.current_buffer_fuzzy_find), '[/] Fuzzily search in current buffer')
         nmap('<leader>sd', custom_preview(builtin.diagnostics), '[S]earch [D]iagnostics')
         nmap('<leader>o', custom_preview(goto_function), '[S]how [F]unctions')
         nmap('gr', builtin.lsp_references, '[G]oto [R]eferences')

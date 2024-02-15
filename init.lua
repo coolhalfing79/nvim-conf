@@ -24,15 +24,6 @@ require('lazy').setup({
     require('plugins.lsp'),
     require('plugins.oil'),
     require('plugins.indent-blankline'),
-    {
-        'nvim-tree/nvim-web-devicons',
-        lazy = true,
-        config = function()
-            require 'nvim-web-devicons'.setup {
-                default = true
-            }
-        end
-    }
 })
 
 vim.wo.number = true
@@ -45,9 +36,6 @@ vim.o.hlsearch = false
 vim.o.ignorecase = true
 vim.wo.signcolumn = 'yes'
 vim.o.updatetime = 50
-vim.o.timeoutlen = 150
+vim.o.timeoutlen = 200
 vim.o.completeopt = 'menuone,preview'
 vim.o.termguicolors = true
-vim.g.netrw_banner = false
-vim.g.netrw_altv = 1
-vim.g.netrw_browse_split = 4
