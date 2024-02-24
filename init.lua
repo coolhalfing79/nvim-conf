@@ -15,6 +15,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 require('lazy').setup({
+    'dasupradyumna/midnight.nvim',
     require('plugins.telescope'),
     require('plugins.treesitter'),
     require('plugins.bluloco'),
@@ -26,6 +27,7 @@ require('lazy').setup({
     require('plugins.indent-blankline'),
 })
 
+vim.cmd.colorscheme('midnight')
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.expandtab = true

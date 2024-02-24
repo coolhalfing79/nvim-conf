@@ -7,7 +7,6 @@ local M = {
       local bluloco = require('bluloco')
       bluloco.config.italics = true
       bluloco.config.transparent = true
-      vim.cmd.colorscheme('bluloco')
   end,
 }
 

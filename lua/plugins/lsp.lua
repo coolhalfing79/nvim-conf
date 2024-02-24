@@ -4,7 +4,7 @@ local on_attach = function(_, bufnr)
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
     nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
     -- See `:help K` for why this keymap
@@ -68,6 +68,18 @@ local M = {
                 }
             end,
         }
+        local _border = "rounded"
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+            vim.lsp.handlers.hover, {
+                border = _border
+            }
+        )
+
+        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+            vim.lsp.handlers.signature_help, {
+                border = _border
+            }
+        )
     end
 }
 
