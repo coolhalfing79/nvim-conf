@@ -1,3 +1,19 @@
+-- Put this at the top of 'init.lua'
+local path_package = vim.fn.stdpath('data') .. '/site'
+local mini_path = path_package .. '/pack/deps/start/mini.nvim'
+if not vim.loop.fs_stat(mini_path) then
+  vim.cmd('echo "Installing `mini.nvim`" | redraw')
+  local clone_cmd = {
+    'git', 'clone', '--filter=blob:none',
+    -- Uncomment next line to use 'stable' branch
+    -- '--branch', 'stable',
+    'https://github.com/echasnovski/mini.nvim', mini_path
+  }
+  vim.fn.system(clone_cmd)
+  vim.cmd('packadd mini.nvim | helptags ALL')
+  vim.cmd('echo "Installed `mini.nvim`" | redraw')
+end
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
@@ -12,17 +28,13 @@ vim.opt.inccommand = 'split'
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.uv.fs_stat(lazypath) then
-    local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-    vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
+local MiniDeps = require('mini.deps')
+MiniDeps.setup({ path = { package = path_package } })
+MiniDeps.add('echasnovski/mini.statusline')
 
-require('lazy').setup {
-    spec = {
-        { import = "plugins" },
-    }
-}
-
-vim.cmd.colorscheme('habamax')
+require('mini.statusline').setup()
+require('plugins.telescope')
+require('plugins.lsp')
+require('plugins.cmp')
+require('plugins.git')
+require('plugins.colors')
