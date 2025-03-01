@@ -14,19 +14,19 @@ if not vim.loop.fs_stat(mini_path) then
   vim.cmd('echo "Installed `mini.nvim`" | redraw')
 end
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-vim.g.have_nerd_font = true
-vim.opt.number = true
+vim.g.mapleader        = ' '
+vim.g.maplocalleader   = ' '
+vim.g.have_nerd_font   = true
+vim.opt.number         = true
 vim.opt.relativenumber = true
-vim.opt.breakindent = true
-vim.opt.undofile = true
-vim.opt.signcolumn = 'yes'
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-vim.opt.inccommand = 'split'
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+vim.opt.breakindent    = true
+vim.opt.undofile       = true
+vim.opt.signcolumn     = 'yes'
+vim.opt.updatetime     = 250
+vim.opt.timeoutlen     = 300
+vim.opt.inccommand     = 'split'
+vim.opt.shiftwidth     = 4
+vim.opt.expandtab      = true
 
 local MiniDeps = require('mini.deps')
 MiniDeps.setup({ path = { package = path_package } })
@@ -38,3 +38,7 @@ require('plugins.lsp')
 require('plugins.cmp')
 require('plugins.git')
 require('plugins.colors')
+
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<C-j>', ':cnext<CR>', { desc = 'Jump to next quickfix item' })
+vim.keymap.set('n', '<C-k>', ':cprev<CR>', { desc = 'Jump to previous quickfix item' })

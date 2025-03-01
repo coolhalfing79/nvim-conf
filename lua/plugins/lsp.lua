@@ -14,9 +14,10 @@ add({
 })
 require('lazydev').setup()
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
-vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', '<leader>f',  vim.lsp.buf.format,      { desc = '[F]ormat' })
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ction' })
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,      { desc = '[R]name Synbol'})
+vim.keymap.set('n', 'gd',         vim.lsp.buf.definition,  { desc = '[G]oto [D]efinition'})
 vim.keymap.set('n', '<leader>o', function()
     builtin.lsp_document_symbols(require('telescope.themes').get_dropdown {
         symbols = { 'function', 'method' },

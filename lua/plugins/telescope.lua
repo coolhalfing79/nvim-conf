@@ -4,7 +4,7 @@ local add = MiniDeps.add
 add({
 	source = 'nvim-telescope/telescope-fzf-native.nvim',
 	hooks = {
-		post_checkout = function() 
+		post_checkout = function()
                     vim.system({'make'})
 		end
 	}
