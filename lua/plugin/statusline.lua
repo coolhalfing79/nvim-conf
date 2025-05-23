@@ -51,7 +51,7 @@ local function filename()
     if fname == "" then
         return ""
     end
-    return "%#StatusLineFilenameAccent# " .. fname .. " %#StatusLineNormal#"
+    return "%#StatusLineFilenameAccent# " .. fname .. "%m %r" .. " %#StatusLineNormal#"
 end
 
 local function filetype()
@@ -72,13 +72,29 @@ local function git_branch_name()
     end
     return '%#StatusLineGitAccent#  ' .. name .. ' %#StatusLineNormal#'
 end
+local function branch_name()
+    local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+    if branch ~= "" then
+        return branch
+    else
+        return ""
+    end
+end
+
+
+vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "FocusGained" }, {
+    callback = function()
+        vim.b.branch_name = branch_name()
+    end
+})
 
 Statusline = {}
 
 Statusline.active = function()
     return table.concat {
         mode(),
-        git_branch_name(),
+        --git_branch_name(),
+        '%#StatusLineGitAccent#  ' .. vim.b.branch_name .. ' %#StatusLineNormal#',
         filename(),
         " %=% ",
         filetype(),
