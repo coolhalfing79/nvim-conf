@@ -65,13 +65,6 @@ end
 local function time()
     return '%#StatusLineTimeAccent#   %{strftime("%H:%M")} '
 end
-local function git_branch_name()
-    local name = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\\n'")
-    if name == '' then
-        return ""
-    end
-    return '%#StatusLineGitAccent#  ' .. name .. ' %#StatusLineNormal#'
-end
 local function branch_name()
     local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
     if branch ~= "" then
@@ -93,7 +86,6 @@ Statusline = {}
 Statusline.active = function()
     return table.concat {
         mode(),
-        --git_branch_name(),
         '%#StatusLineGitAccent#  ' .. vim.b.branch_name .. ' %#StatusLineNormal#',
         filename(),
         " %=% ",

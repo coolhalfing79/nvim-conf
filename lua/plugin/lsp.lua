@@ -29,7 +29,6 @@ vim.keymap.set('n', '<leader>s', function()
 end)
 vim.api.nvim_create_user_command('Format', function()
     vim.lsp.buf.format()
-    print('formatted!')
 end, {})
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
