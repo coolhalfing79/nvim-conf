@@ -8,7 +8,8 @@ vim.opt.inccommand   = 'split'
 vim.opt.shiftwidth   = 4
 vim.opt.expandtab    = true
 vim.opt.completeopt  = 'menuone,noselect,popup'
-vim.opt.cmdheight    = 0
+vim.opt.showmode     = false
+-- vim.opt.cmdheight    = 0
 vim.o.winborder      = 'single'
 vim.o.signcolumn     = 'yes'
 vim.o.list           = true
@@ -18,13 +19,12 @@ require('plugin.mini')
 require('plugin.lsp')
 require('plugin.git')
 require('plugin.telescope')
-vim.cmd.colorscheme('habamax')
+require('mini.deps').add('sainnhe/everforest')
+vim.cmd.colorscheme('everforest')
 vim.cmd([[
 hi! link TelescopePreviewNormal Pmenu
 hi! link TelescopePromptNormal Pmenu
 hi! link TelescopeResultsNormal Pmenu
-hi! link FloatBorder Pmenu
-hi Normal guibg=none
 ]])
 require('plugin.statusline')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
