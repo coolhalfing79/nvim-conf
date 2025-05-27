@@ -1,41 +1,41 @@
 local modes = {
-    ["n"]  = "N",
-    ["no"] = "N",
-    ["v"]  = "V",
-    ["V"]  = "VISUAL LINE",
+    ["n"]   = "NORMAL",
+    ["no"]  = "NORMAL",
+    ["v"]   = "VISUAL",
+    ["V"]   = "VISUAL LINE",
     [""]  = "VISUAL BLOCK",
-    ["s"]  = "SELECT",
-    ["S"]  = "SELECT LINE",
+    ["s"]   = "SELECT",
+    ["S"]   = "SELECT LINE",
     [""]  = "SELECT BLOCK",
-    ["i"]  = "I",
-    ["ic"] = "I",
-    ["R"]  = "REPLACE",
-    ["Rv"] = "VISUAL REPLACE",
-    ["c"]  = "COMMAND",
-    ["cv"] = "VIM EX",
-    ["ce"] = "EX",
-    ["r"]  = "PROMPT",
-    ["rm"] = "MOAR",
-    ["r?"] = "CONFIRM",
-    ["!"]  = "SHELL",
-    ["nt"] = "TERMINAL",
+    ["i"]   = "INSERT",
+    ["ic"]  = "INSERT",
+    ["R"]   = "REPLACE",
+    ["Rv"]  = "VISUAL REPLACE",
+    ["c"]   = "COMMAND",
+    ["cv"]  = "VIM EX",
+    ["ce"]  = "EX",
+    ["r"]   = "PROMPT",
+    ["rm"]  = "MOAR",
+    ["r?"]  = "CONFIRM",
+    ["!"]   = "SHELL",
+    ["nt"]  = "TERMINAL",
 }
 vim.cmd([[
-hi StatusLineAccent         guifg=#252535 guibg=#98BB6C
-hi StatusLineInsertAccent   guifg=#252535 guibg=#D27E99
-hi StatuslineVisualAccent   guifg=#252535 guibg=#FFA066
-hi StatuslineReplaceAccent  guifg=#252535 guibg=#C34043
-hi StatusLineFilenameAccent guifg=#DCD7BA guibg=#54546D
-hi StatusLineTimeAccent     guifg=#252535 guibg=#938AA9
-hi StatusLineGitAccent      guifg=#252535 guibg=#938AA9
-hi StatusLineNormal         guifg=#252535 guibg=#2A2A37
+hi StatusLineNormalAccent   guifg=#1E2326 guibg=#93B259
+hi StatusLineInsertAccent   guifg=#1E2326 guibg=#E69875
+hi StatuslineVisualAccent   guifg=#1E2326 guibg=#DBBC7F
+hi StatuslineReplaceAccent  guifg=#1E2326 guibg=#C34043
+hi StatusLineTimeAccent     guifg=#1E2326 guibg=#D699B6
+hi StatusLineGitAccent      guifg=#D3C6AA guibg=#475258
+hi StatusLineFilenameAccent guifg=#D3C6AA guibg=#3D484D
+hi StatusLineNormal         guifg=#D3C6AA guibg=#343F44
 ]])
 
 local function mode()
     local current_mode = vim.api.nvim_get_mode().mode
-    local mode_color = "%#StatusLineAccent#"
+    local mode_color = "%#StatusLineNormalAccent#"
     if current_mode == "n" then
-        mode_color = "%#StatuslineAccent#"
+        mode_color = "%#StatuslineNormalAccent#"
     elseif current_mode == "i" or current_mode == "ic" then
         mode_color = "%#StatuslineInsertAccent#"
     elseif current_mode == "v" or current_mode == "V" or current_mode == "" then
@@ -68,7 +68,7 @@ end
 local function branch_name()
     local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
     if branch ~= "" then
-        return branch
+        return '%#StatusLineGitAccent#  ' .. branch .. ' %#StatusLineNormal#'
     else
         return ""
     end
@@ -86,7 +86,7 @@ Statusline = {}
 Statusline.active = function()
     return table.concat {
         mode(),
-        '%#StatusLineGitAccent#  ' .. vim.b.branch_name .. ' %#StatusLineNormal#',
+        vim.b.branch_name,
         filename(),
         " %=% ",
         filetype(),
