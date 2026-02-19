@@ -1,0 +1,6 @@
+vim.pack.add({'https://github.com/rose-pine/neovim'}, { load = true })
+vim.pack.add({'https://github.com/catppuccin/nvim'}, { load = true })
+vim.pack.add({'https://github.com/bluz71/vim-moonfly-colors'}, { load = true })
+vim.pack.add({'https://github.com/rebelot/kanagawa.nvim'}, { load = true })
+vim.pack.add({'https://github.com/ribru17/bamboo.nvim'}, { load = true })
+vim.pack.add({'https://github.com/blazkowolf/gruber-darker.nvim'}, { load = true })

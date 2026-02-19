@@ -20,16 +20,16 @@ local modes = {
     ["!"]   = "SHELL",
     ["nt"]  = "TERMINAL",
 }
-vim.cmd([[
-hi StatusLineNormalAccent   guifg=#1E2326 guibg=#93B259
-hi StatusLineInsertAccent   guifg=#1E2326 guibg=#E69875
-hi StatuslineVisualAccent   guifg=#1E2326 guibg=#DBBC7F
-hi StatuslineReplaceAccent  guifg=#1E2326 guibg=#C34043
-hi StatusLineTimeAccent     guifg=#1E2326 guibg=#D699B6
-hi StatusLineGitAccent      guifg=#D3C6AA guibg=#475258
-hi StatusLineFilenameAccent guifg=#D3C6AA guibg=#3D484D
-hi StatusLineNormal         guifg=#D3C6AA guibg=#343F44
-]])
+-- vim.cmd([[
+-- hi StatusLineNormalAccent   guifg=#1E2326 guibg=#93B259
+-- hi StatusLineInsertAccent   guifg=#1E2326 guibg=#E69875
+-- hi StatuslineVisualAccent   guifg=#1E2326 guibg=#DBBC7F
+-- hi StatuslineReplaceAccent  guifg=#1E2326 guibg=#C34043
+-- hi StatusLineTimeAccent     guifg=#1E2326 guibg=#D699B6
+-- hi StatusLineGitAccent      guifg=#D3C6AA guibg=#475258
+-- hi StatusLineFilenameAccent guifg=#D3C6AA guibg=#3D484D
+-- hi StatusLineNormal         guifg=#D3C6AA guibg=#343F44
+-- ]])
 
 local function mode()
     local current_mode = vim.api.nvim_get_mode().mode
@@ -105,6 +105,7 @@ end
 vim.cmd([[
 augroup Statusline
 au!
+au FileType TelescopePrompt setlocal statusline=
 au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
 au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline.inactive()
 au WinEnter,BufEnter,FileType NvimTree setlocal statusline=%!v:lua.Statusline.short()

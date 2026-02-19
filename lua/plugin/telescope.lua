@@ -1,41 +1,25 @@
-local MiniDeps = require('mini.deps')
-local add = MiniDeps.add
+vim.pack.add({
+    'https://github.com/nvim-lua/plenary.nvim',
+    'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
+    { src = 'https://github.com/nvim-telescope/telescope.nvim', version = 'v0.2.0' },
+    'https://github.com/nvim-telescope/telescope-ui-select.nvim',
+    'https://github.com/nvim-tree/nvim-web-devicons'
+}, { load = true })
 
-add({
-    source = 'nvim-telescope/telescope-fzf-native.nvim',
-    hooks = {
-        post_checkout = function()
-            vim.system({ 'make' })
-        end
-    }
-})
-add({
-    source = 'nvim-lua/plenary.nvim',
-    depends = { 'nvim-telescope/telescope-fzf-native.nvim' }
-})
-add({
-    source = 'nvim-telescope/telescope.nvim',
-    depends = {
-        'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-ui-select.nvim',
-        'nvim-tree/nvim-web-devicons'
-    }
-})
 require('telescope').setup {
-    extensions = {
-        ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-        },
-    },
-    defaults = {
-        layout_strategy = 'bottom_pane',
-        border = false
-    }
+    --extensions = {
+    --    ['ui-select'] = {
+    --        require('telescope.themes').get_dropdown(),
+    --    },
+    --},
+    --defaults = {
+    --    -- layout_strategy = 'bottom_pane',
+    --}
 }
 
 -- Enable Telescope extensions if they are installed
 pcall(require('telescope').load_extension, 'fzf')
-pcall(require('telescope').load_extension, 'ui-select')
+-- pcall(require('telescope').load_extension, 'ui-select')
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>h', builtin.help_tags, { desc = '[S]earch [H]elp' })
